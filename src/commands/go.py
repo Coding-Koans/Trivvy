@@ -6,9 +6,9 @@ class Go:
     command = "!go"
     validate = [ "admin_only" ]
 
-    def __init__(self, question_csv, game_record, players, log = print):
+    def __init__(self, question_csv, questions_asked, players, log = print):
         self.csv_filename = question_csv
-        self.record = game_record
+        self.questions_asked = questions_asked
         self.players = players
         self.log = log
         self.game_running = False
@@ -34,5 +34,5 @@ class Go:
 
     def run_round(self, connection, csv):
         questions = csv.get_questions()
-        game = Game(questions, connection, self.record, self.players)
+        game = Game(connection, questions, self.questions_asked, self.players)
         game.go()

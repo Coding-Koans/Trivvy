@@ -7,12 +7,12 @@ import time
 class Questioner:
     hint_replacement = '_'
 
-    def __init__(self, question, connection, game_record, timer):
+    def __init__(self, connection, question, questions_asked, timer):
+        self.connection = connection
         self.question = question
         self.ask = question['Ask']
         self.answer = question['Answer']
-        self.connection = connection
-        self.game_record = game_record
+        self.questions_asked = questions_asked
         self.timer = timer
 
     def go(self):
@@ -46,7 +46,7 @@ class Questioner:
             self.connection.send(random.choice(Chat.unanswered_questions))
 
     def end(self):
-        self.game_record.log(self.question)
+        self.questions_asked.log(self.question)
 
     def check_answer(self, participant_answer):
         participant_answer = Mr.clean(participant_answer)
