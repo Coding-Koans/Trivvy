@@ -1,5 +1,5 @@
-from mocks.game.game_record import Game_Record
-from src.game.players import Players
+from src.game.records.game_record import Game_Record
+from src.game.records.players import Players
 
 from .go import Go
 from .stop import stop

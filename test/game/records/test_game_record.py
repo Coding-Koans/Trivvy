@@ -1,6 +1,6 @@
 import unittest
 import os
-from src.game.game_record import Game_Record as Subject
+from src.game.records.game_record import Game_Record as Subject
 
 class Game_Record_TestCase(unittest.TestCase):
     def cleanup(self, filename):

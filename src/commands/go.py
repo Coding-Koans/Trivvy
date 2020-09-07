@@ -1,4 +1,4 @@
-from src.game.triviaset import Trivia_Set
+from src.game.records.triviaset import Trivia_Set
 from src.game.game import Game
 from src.messages import Log as report
 
