@@ -7,14 +7,14 @@ class Players():
         self.scores = self.fs.get_records()
 
     def score(self, player):
-        self.fs.get_records()
+        self.scores = self.fs.get_records()
         print("HEY! OVER HERE!")
         print(self.scores)
         if player in self.scores.keys():
             self.up_score(player)
         else:
             self.add_to_board(player)
-        self.fs.save_records()
+        self.fs.save_records(self.scores)
 
     def up_score(self, player):
         self.scores[player]['round_points'] += 1
@@ -28,23 +28,23 @@ class Players():
         }
 
     def score_winners(self, winners):
-        self.fs.get_records()
+        self.scores = self.fs.get_records()
         for player in winners:
             # pretty sure it's impossible for someone to win and not be on the board
             if player in self.scores.keys(): 
                 self.scores[player]["game_wins"] += 1
-        self.fs.save_records()
+        self.fs.save_records(self.scores)
 
     def reset_scores_for_next_round(self):
-        self.fs.get_records()
+        self.scores = self.fs.get_records()
         self.reset("round_points")
-        self.fs.save_records()
+        self.fs.save_records(self.scores)
 
     def reset_scores_for_next_game(self):
-        self.fs.get_records()
+        self.scores = self.fs.get_records()
         self.reset("round_points")
         self.reset("game_points")
-        self.fs.save_records()
+        self.fs.save_records(self.scores)
 
     def reset(self, thing_to_be_reset):
         for score in self.scores.values():

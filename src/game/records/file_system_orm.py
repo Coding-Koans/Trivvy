@@ -8,8 +8,8 @@ class FS_ORM():
         self.records = self.get_records()
 
     # public
-    def save_records(self):
-        self.overwrite_to_FS()
+    def save_records(self, records):
+        self.overwrite_to_FS(records)
 
     # public
     def get_records(self):
@@ -30,13 +30,13 @@ class FS_ORM():
 
     def create_new_blank_records(self):
         self.records = self.blank_records
-        self.overwrite_to_FS()
-        self.cache = self.blank_records
-        return self.blank_records
+        self.overwrite_to_FS(self.records)
+        self.cache = self.records
+        return self.records
 
-    def overwrite_to_FS(self):
+    def overwrite_to_FS(self, records):
         file = open(self.filename, "wt")
-        file.write(str(self.records))
+        file.write(str(records))
         self.clear_score_cache()
         file.close()
 

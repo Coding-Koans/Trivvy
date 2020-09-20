@@ -1,11 +1,15 @@
 import unittest
 import inspect
+from test.test_helpers.file_system import cleanup
 from src.commands import all
 
 class AllCommandsTestCase(unittest.TestCase):
+    records = "questions_asked"
+
     def test_commands_returns_tuples_with_message_matchers(self):
         subject = all.commands()
 
+        cleanup(self.records)
         for command in subject:
             message_matcher = command[0]
             self.assertEqual(type(message_matcher), str)
@@ -14,6 +18,8 @@ class AllCommandsTestCase(unittest.TestCase):
     def test_commands_returns_a_tuple_with_callbacks(self):
         subject = all.commands()
 
+
+        cleanup(self.records)
         for command in subject:
             callback = command[1]
             self.assertTrue(callable(callback))
@@ -31,6 +37,7 @@ class AllCommandsTestCase(unittest.TestCase):
 
         subject = all.commands()
 
+        cleanup(self.records)
         for command in subject:
             validations = command[2]
             self.assertEqual(type(validations), list)
@@ -42,6 +49,7 @@ class AllCommandsTestCase(unittest.TestCase):
 
         command_messages = []
         unique = []
+        cleanup(self.records)
         for command in subject:
             command_messages.append(command[0])
             if command[0] not in unique:
