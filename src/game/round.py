@@ -4,10 +4,10 @@ from src.game.questioner import Questioner
 
 class Round():
 
-    def __init__(self, questions, connection, game_record, players):
-        self.name = questions[0]['Round'] if questions else 0
+    def __init__(self, connection, questions, questions_asked, players):
         self.connection = connection
-        self.game_record = game_record
+        self.name = questions[0]['Round'] if questions else 0
+        self.questions_asked = questions_asked
         self.timer = Timer()
         self.players = players
         self.questioners = self.init_questioners(questions)
@@ -16,7 +16,7 @@ class Round():
         return [self.init_q(question) for question in questions]
 
     def init_q(self, question):
-        return Questioner(question, self.connection, self.game_record, self.timer)
+        return Questioner(self.connection, question, self.questions_asked, self.timer)
 
     def go(self):
         self.start()

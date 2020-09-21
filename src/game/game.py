@@ -3,10 +3,10 @@ from src.game.round import Round
 
 class Game:
 
-    def __init__(self, questions, connection, game_record, players):
-        self.questions = questions
+    def __init__(self, connection, questions, questions_asked, players):
         self.connection = connection
-        self.game_record = game_record
+        self.questions = questions
+        self.questions_asked = questions_asked
         self.players = players
         self.rounds = []
 
@@ -15,12 +15,12 @@ class Game:
         return [self.init_r(round_questions) for round_questions in game_qs]
 
     def init_r(self, round_questions):
-        return Round(round_questions, self.connection, self.game_record, self.players)
+        return Round(self.connection, round_questions, self.questions_asked, self.players)
 
     def list_by_rounds(self, questions):
         game_qs = []
         for q in questions:
-            if q not in self.game_record.logged_questions():
+            if q not in self.questions_asked.all_logged():
                 self.add(q, game_qs) if game_qs else game_qs.append([q])
         return game_qs
 
@@ -47,7 +47,7 @@ class Game:
 
     def end(self):
         if len(self.rounds) == 1:
-            self.game_record.clear_game()
+            self.questions_asked.clear_all()
             self.connection.send(Chat.end_game(self.players.game_winners()))
             self.players.score_winners()
             self.players.reset_scores_for_next_game()

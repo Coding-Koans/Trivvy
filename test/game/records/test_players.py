@@ -1,12 +1,8 @@
 import unittest
-import os
-from src.game.players import Players as Subject
+from test.test_helpers.file_system import cleanup
+from src.game.records.players import Players as Subject
 
 class PlayersTestCase(unittest.TestCase):
-    def cleanup(self, filename):
-        if os.path.exists(f"{filename}.txt"):
-          os.remove(f"{filename}.txt")
-
     def test_players_score_adds_new_players_to_the_board(self):
         player = "paul2D2"
         expected = {
@@ -19,7 +15,7 @@ class PlayersTestCase(unittest.TestCase):
 
         s.score(player)
 
-        self.cleanup(filename)
+        cleanup(filename)
         self.assertEqual(s.scores[player], expected)
 
     def test_players_score_ups_an_existing_players_score(self):
@@ -35,7 +31,7 @@ class PlayersTestCase(unittest.TestCase):
         s.score(player)
         s.score(player)
 
-        self.cleanup(filename)
+        cleanup(filename)
         self.assertEqual(s.scores[player], expected)
 
     def test_players_winner_adds_a_game_win_to_a_player_on_the_board(self):
@@ -53,7 +49,7 @@ class PlayersTestCase(unittest.TestCase):
 
         s.score_winners(winners)
 
-        self.cleanup(filename)
+        cleanup(filename)
         self.assertEqual(s.scores, expected)
 
     def test_players_winner_only_adds_a_game_win_to_players_on_the_board(self):
@@ -71,7 +67,7 @@ class PlayersTestCase(unittest.TestCase):
 
         s.score_winners(winners)
 
-        self.cleanup(filename)
+        cleanup(filename)
         self.assertEqual(s.scores, expected)
 
     def test_players_winner_adds_a_game_win_to__multiple_players_on_the_board(self):
@@ -95,7 +91,7 @@ class PlayersTestCase(unittest.TestCase):
 
         s.score_winners(winners)
 
-        self.cleanup(filename)
+        cleanup(filename)
         self.assertEqual(s.scores, expected)
 
     def test_players_new_round_clears_all_old_round_scores(self):
@@ -121,7 +117,7 @@ class PlayersTestCase(unittest.TestCase):
 
         s.reset_scores_for_next_round()
 
-        self.cleanup(filename)
+        cleanup(filename)
         self.assertEqual(s.scores, expected)
 
     def test_players_new_game_clears_all_old_round_and_game_scores(self):
@@ -147,7 +143,7 @@ class PlayersTestCase(unittest.TestCase):
 
         s.reset_scores_for_next_game()
 
-        self.cleanup(filename)
+        cleanup(filename)
         self.assertEqual(s.scores, expected)
 
     def test_players_round_winners_gives_the_top_3_round_players(self):
@@ -171,7 +167,7 @@ class PlayersTestCase(unittest.TestCase):
 
         actual = s.round_winners()
 
-        self.cleanup(filename)
+        cleanup(filename)
         self.assertEqual(expected, actual)
 
     def test_players_game_winners_gives_the_top_3_game_players(self):
@@ -195,7 +191,7 @@ class PlayersTestCase(unittest.TestCase):
 
         actual = s.game_winners()
 
-        self.cleanup(filename)
+        cleanup(filename)
         self.assertEqual(expected, actual)
 
     def test_players_top_players_gives_the_top_3_players(self):
@@ -217,7 +213,7 @@ class PlayersTestCase(unittest.TestCase):
 
         actual = s.top_players()
 
-        self.cleanup(filename)
+        cleanup(filename)
         self.assertEqual(expected, actual)
 
     def test_players_top_players_gives_first_3_players_to_get_on_the_board_when_there_are_many (self):
@@ -236,7 +232,7 @@ class PlayersTestCase(unittest.TestCase):
 
         actual = s.top_players()
 
-        self.cleanup(filename)
+        cleanup(filename)
         self.assertEqual(expected, actual)
 
     def test_players_top_players_gives_2_players_when_there_are_only_2 (self):
@@ -255,7 +251,7 @@ class PlayersTestCase(unittest.TestCase):
 
         actual = s.top_players()
 
-        self.cleanup(filename)
+        cleanup(filename)
         self.assertEqual(expected, actual)
 
     def test_players_top_players_gives_the_only_player_whose_played (self):
@@ -272,7 +268,7 @@ class PlayersTestCase(unittest.TestCase):
 
         actual = s.top_players()
 
-        self.cleanup(filename)
+        cleanup(filename)
         self.assertEqual(expected, actual)
 
     def test_players_top_players_gives_noting_if_no_one_has_played (self):
@@ -286,5 +282,5 @@ class PlayersTestCase(unittest.TestCase):
 
         actual = s.top_players()
 
-        self.cleanup(filename)
+        cleanup(filename)
         self.assertEqual(expected, actual)
