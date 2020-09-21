@@ -2,4 +2,5 @@ userscores.txt
 __pycache__
 config.txt
 player_scores.txt
+questions_asked.txt
 *.pyc
