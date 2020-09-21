@@ -1,15 +1,13 @@
 from src.game.records.file_system_orm import FS_ORM
 
 class Players():
-    def __init__(self, filename):
+    def __init__(self, file_name = "player_scores"):
         blank_records = {}
-        self.fs = FS_ORM(filename, blank_records)
+        self.fs = FS_ORM(file_name, blank_records)
         self.scores = self.fs.get_records()
 
     def score(self, player):
         self.scores = self.fs.get_records()
-        print("HEY! OVER HERE!")
-        print(self.scores)
         if player in self.scores.keys():
             self.up_score(player)
         else:
