@@ -1,7 +1,7 @@
 from src.game.records.file_system_orm import FS_ORM
 
 class Players():
-    def __init__(self, file_name = "player_scores"):
+    def __init__(self, file_name):
         blank_records = {}
         self.fs = FS_ORM(file_name, blank_records)
         self.scores = self.fs.get_records()

@@ -10,12 +10,12 @@ class PlayersTestCase(unittest.TestCase):
             "game_points": 1,
             "game_wins": 0
         }
-        filename = "mock_players"
-        s = Subject(filename)
+        file_name = "mock_players"
+        s = Subject(file_name)
 
         s.score(player)
 
-        cleanup(filename)
+        cleanup(file_name)
         self.assertEqual(s.scores[player], expected)
 
     def test_players_score_ups_an_existing_players_score(self):
@@ -25,13 +25,13 @@ class PlayersTestCase(unittest.TestCase):
             "game_points": 2,
             "game_wins": 0
         }
-        filename = "mock_players"
-        s = Subject(filename)
+        file_name = "mock_players"
+        s = Subject(file_name)
 
         s.score(player)
         s.score(player)
 
-        cleanup(filename)
+        cleanup(file_name)
         self.assertEqual(s.scores[player], expected)
 
     def test_players_winner_adds_a_game_win_to_a_player_on_the_board(self):
@@ -43,13 +43,13 @@ class PlayersTestCase(unittest.TestCase):
                 "game_wins": 1
             }
         }
-        filename = "mock_players"
-        s = Subject(filename)
+        file_name = "mock_players"
+        s = Subject(file_name)
         s.score(winners[0])
 
         s.score_winners(winners)
 
-        cleanup(filename)
+        cleanup(file_name)
         self.assertEqual(s.scores, expected)
 
     def test_players_winner_only_adds_a_game_win_to_players_on_the_board(self):
@@ -61,13 +61,13 @@ class PlayersTestCase(unittest.TestCase):
                 "game_wins": 1
             }
         }
-        filename = "mock_players"
-        s = Subject(filename)
+        file_name = "mock_players"
+        s = Subject(file_name)
         s.score(winners[0])
 
         s.score_winners(winners)
 
-        cleanup(filename)
+        cleanup(file_name)
         self.assertEqual(s.scores, expected)
 
     def test_players_winner_adds_a_game_win_to__multiple_players_on_the_board(self):
@@ -84,14 +84,14 @@ class PlayersTestCase(unittest.TestCase):
                 "game_wins": 1
             }
         }
-        filename = "mock_players"
-        s = Subject(filename)
+        file_name = "mock_players"
+        s = Subject(file_name)
         s.score(winners[0])
         s.score(winners[1])
 
         s.score_winners(winners)
 
-        cleanup(filename)
+        cleanup(file_name)
         self.assertEqual(s.scores, expected)
 
     def test_players_new_round_clears_all_old_round_scores(self):
@@ -108,8 +108,8 @@ class PlayersTestCase(unittest.TestCase):
                 "game_wins": 1
             }
         }
-        filename = "mock_players"
-        s = Subject(filename)
+        file_name = "mock_players"
+        s = Subject(file_name)
         s.score(players[0])
         s.score(players[1])
         s.score(players[1])
@@ -117,7 +117,7 @@ class PlayersTestCase(unittest.TestCase):
 
         s.reset_scores_for_next_round()
 
-        cleanup(filename)
+        cleanup(file_name)
         self.assertEqual(s.scores, expected)
 
     def test_players_new_game_clears_all_old_round_and_game_scores(self):
@@ -134,8 +134,8 @@ class PlayersTestCase(unittest.TestCase):
                 "game_wins": 1
             }
         }
-        filename = "mock_players"
-        s = Subject(filename)
+        file_name = "mock_players"
+        s = Subject(file_name)
         s.score(players[0])
         s.score(players[1])
         s.score(players[1])
@@ -143,7 +143,7 @@ class PlayersTestCase(unittest.TestCase):
 
         s.reset_scores_for_next_game()
 
-        cleanup(filename)
+        cleanup(file_name)
         self.assertEqual(s.scores, expected)
 
     def test_players_round_winners_gives_the_top_3_round_players(self):
@@ -153,8 +153,8 @@ class PlayersTestCase(unittest.TestCase):
             (players[4], 4),
             (players[1], 3)
         ]
-        filename = "mock_players"
-        s = Subject(filename)
+        file_name = "mock_players"
+        s = Subject(file_name)
         for _ in range(5):
             s.score(players[3])
         for _ in range(4):
@@ -167,7 +167,7 @@ class PlayersTestCase(unittest.TestCase):
 
         actual = s.round_winners()
 
-        cleanup(filename)
+        cleanup(file_name)
         self.assertEqual(expected, actual)
 
     def test_players_game_winners_gives_the_top_3_game_players(self):
@@ -177,8 +177,8 @@ class PlayersTestCase(unittest.TestCase):
             (players[4], 4),
             (players[1], 3)
         ]
-        filename = "mock_players"
-        s = Subject(filename)
+        file_name = "mock_players"
+        s = Subject(file_name)
         for _ in range(5):
             s.score(players[3])
         for _ in range(4):
@@ -191,7 +191,7 @@ class PlayersTestCase(unittest.TestCase):
 
         actual = s.game_winners()
 
-        cleanup(filename)
+        cleanup(file_name)
         self.assertEqual(expected, actual)
 
     def test_players_top_players_gives_the_top_3_players(self):
@@ -201,8 +201,8 @@ class PlayersTestCase(unittest.TestCase):
             (players[4], 4),
             (players[1], 3)
         ]
-        filename = "mock_players"
-        s = Subject(filename)
+        file_name = "mock_players"
+        s = Subject(file_name)
         for player in players:
             s.score(player)
         s.score_winners([ players[3] ])
@@ -213,7 +213,7 @@ class PlayersTestCase(unittest.TestCase):
 
         actual = s.top_players()
 
-        cleanup(filename)
+        cleanup(file_name)
         self.assertEqual(expected, actual)
 
     def test_players_top_players_gives_first_3_players_to_get_on_the_board_when_there_are_many (self):
@@ -223,8 +223,8 @@ class PlayersTestCase(unittest.TestCase):
             (players[1], 1),
             (players[2], 1)
         ]
-        filename = "mock_players"
-        s = Subject(filename)
+        file_name = "mock_players"
+        s = Subject(file_name)
         for player in players:
             s.score(player)
         s.reset_scores_for_next_game
@@ -232,7 +232,7 @@ class PlayersTestCase(unittest.TestCase):
 
         actual = s.top_players()
 
-        cleanup(filename)
+        cleanup(file_name)
         self.assertEqual(expected, actual)
 
     def test_players_top_players_gives_2_players_when_there_are_only_2 (self):
@@ -241,8 +241,8 @@ class PlayersTestCase(unittest.TestCase):
             (players[1], 2),
             (players[0], 1)
         ]
-        filename = "mock_players"
-        s = Subject(filename)
+        file_name = "mock_players"
+        s = Subject(file_name)
         for player in players:
             s.score(player)
         s.reset_scores_for_next_game
@@ -251,7 +251,7 @@ class PlayersTestCase(unittest.TestCase):
 
         actual = s.top_players()
 
-        cleanup(filename)
+        cleanup(file_name)
         self.assertEqual(expected, actual)
 
     def test_players_top_players_gives_the_only_player_whose_played (self):
@@ -259,8 +259,8 @@ class PlayersTestCase(unittest.TestCase):
         expected = [
             (players[0], 1)
         ]
-        filename = "mock_players"
-        s = Subject(filename)
+        file_name = "mock_players"
+        s = Subject(file_name)
         for player in players:
             s.score(player)
         s.reset_scores_for_next_game
@@ -268,19 +268,19 @@ class PlayersTestCase(unittest.TestCase):
 
         actual = s.top_players()
 
-        cleanup(filename)
+        cleanup(file_name)
         self.assertEqual(expected, actual)
 
     def test_players_top_players_gives_noting_if_no_one_has_played (self):
         players = [ "paul2D2" ]
         expected = []
-        filename = "mock_players"
-        s = Subject(filename)
+        file_name = "mock_players"
+        s = Subject(file_name)
         for player in players:
             s.score(player)
         s.reset_scores_for_next_game
 
         actual = s.top_players()
 
-        cleanup(filename)
+        cleanup(file_name)
         self.assertEqual(expected, actual)

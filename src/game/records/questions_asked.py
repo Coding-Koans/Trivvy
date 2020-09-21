@@ -2,7 +2,7 @@ from src.game.records.file_system_orm import FS_ORM
 
 class Questions_Asked():
     
-    def __init__(self, filename = "questions_asked"):
+    def __init__(self, filename):
         new_log = []
         self.fs = FS_ORM(filename, new_log)
         self._log = self.fs.get_records()
