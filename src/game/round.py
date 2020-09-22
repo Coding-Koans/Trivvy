@@ -16,7 +16,7 @@ class Round():
         return [self.init_q(question) for question in questions]
 
     def init_q(self, question):
-        return Questioner(self.connection, question, self.questions_asked, self.timer)
+        return Questioner(self.connection, question, self.questions_asked, self.player_scores, self.timer)
 
     def go(self):
         self.start()

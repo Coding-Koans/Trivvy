@@ -3,6 +3,7 @@ import time
 from concurrent.futures import ThreadPoolExecutor
 from mocks.connection import Connection
 from mocks.game.questions_asked import Questions_Asked
+from mocks.game.player_scores import Player_Scores
 from mocks.game.timer import Timer
 from src.messages import Chat
 from src.game.questioner import Questioner as Subject
@@ -15,7 +16,7 @@ class QuestionerTestCase(unittest.TestCase):
             'Ask': "What's a Diorama?",
             'Answer': "OMG Han! Chewie! They're all here!"
         }
-        s = Subject(Connection(), question, Questions_Asked(), Timer())
+        s = Subject(Connection(), question, Questions_Asked(), Player_Scores(), Timer())
         self.assertEqual(s.ask, "What's a Diorama?")
         self.assertEqual(type(s.ask), str)
         self.assertEqual(type(s.ask), str)
@@ -28,14 +29,14 @@ class QuestionerTestCase(unittest.TestCase):
             'Answer': "OMG Han! Chewie! They're all here!",
             'Answer2': 'D\'oh!'
         }
-        Subject(Connection(), question, Questions_Asked(), Timer())
+        Subject(Connection(), question, Questions_Asked(), Player_Scores(), Timer())
 
     def test_questioner_gives_its_ask(self):
         question = {
             'Ask': "What's a Diorama?",
             'Answer': "OMG Han! Chewie! They're all here!"
         }
-        subject = Subject(Connection(), question, Questions_Asked(), Timer())
+        subject = Subject(Connection(), question, Questions_Asked(), Player_Scores(), Timer())
         self.assertEqual(subject.ask, "What's a Diorama?")
 
     def test_questioner_identifies_an_exact_correct_answer(self):
@@ -43,7 +44,7 @@ class QuestionerTestCase(unittest.TestCase):
             'Ask': "What's a Diorama?",
             'Answer': "OMG Han! Chewie! They're all here!"
         }
-        s = Subject(Connection(), question, Questions_Asked(), Timer())
+        s = Subject(Connection(), question, Questions_Asked(), Player_Scores(), Timer())
         participant_answer = "OMG Han! Chewie! They're all here!"
         actual = s.check_answer(participant_answer)
         self.assertEqual(actual, True)
@@ -53,7 +54,7 @@ class QuestionerTestCase(unittest.TestCase):
             'Ask': "What's a Diorama?",
             'Answer': "OMG Han! Chewie! They're all here!"
         }
-        s = Subject(Connection(), question, Questions_Asked(), Timer())
+        s = Subject(Connection(), question, Questions_Asked(), Player_Scores(), Timer())
         participant_answer = "I don't know, some kind of goblin-man."
         actual = s.check_answer(participant_answer)
         self.assertEqual(actual, False)
@@ -63,7 +64,7 @@ class QuestionerTestCase(unittest.TestCase):
             'Ask': "What's a Diorama?",
             'Answer': "OMG Han! Chewie! They're all here!"
         }
-        s = Subject(Connection(), question, Questions_Asked(), Timer())
+        s = Subject(Connection(), question, Questions_Asked(), Player_Scores(), Timer())
         participant_answer = " \t \rOMG Han! Chewie! They're all here!\r \n "
         actual = s.check_answer(participant_answer)
         self.assertEqual(actual, True)
@@ -73,7 +74,7 @@ class QuestionerTestCase(unittest.TestCase):
             'Ask': "What's a Diorama?",
             'Answer': "OMG Han! Chewie! They're all here!"
         }
-        s = Subject(Connection(), question, Questions_Asked(), Timer())
+        s = Subject(Connection(), question, Questions_Asked(), Player_Scores(), Timer())
         participant_answer = " \t \rOMGHan!   Chewie! \t They're all here!\r \n "
         actual = s.check_answer(participant_answer)
         self.assertEqual(actual, True)
@@ -83,7 +84,7 @@ class QuestionerTestCase(unittest.TestCase):
             'Ask': "What's a Diorama?",
             'Answer': "OMG Han! Chewie! They're all here!"
         }
-        s = Subject(Connection(), question, Questions_Asked(), Timer())
+        s = Subject(Connection(), question, Questions_Asked(), Player_Scores(), Timer())
         participant_answer = "OmG hAn! CheWIe! theY're all hEre!"
         actual = s.check_answer(participant_answer)
         self.assertEqual(actual, True)
@@ -93,7 +94,7 @@ class QuestionerTestCase(unittest.TestCase):
             'Ask': "What's a Diorama?",
             'Answer': "OMG Han! Chewie! They're all here!"
         }
-        s = Subject(Connection(), question, Questions_Asked(), Timer())
+        s = Subject(Connection(), question, Questions_Asked(), Player_Scores(), Timer())
         participant_answer = "I would say OMG Han! Chewie! They're all here! what do you think?"
         actual = s.check_answer(participant_answer)
         self.assertEqual(actual, True)
@@ -104,7 +105,7 @@ class QuestionerTestCase(unittest.TestCase):
             'Answer': "OMG Han! Chewie! They're all here!"
         }
         participant_answer = "O!M@G#H$a%n^?&C*(h)e_w-i+e=!{T}[h]e|y'r\\e:a;l\"l'<h>e,r.e/"
-        s = Subject(Connection(), question, Questions_Asked(), Timer())
+        s = Subject(Connection(), question, Questions_Asked(), Player_Scores(), Timer())
         actual = s.check_answer(participant_answer)
         self.assertEqual(actual, True)
 
@@ -113,7 +114,7 @@ class QuestionerTestCase(unittest.TestCase):
             'Ask': "What's a Diorama?",
             'Answer': "OMG Han! Chewie! They're all here!"
         }
-        s = Subject(Connection(), question, Questions_Asked(), Timer())
+        s = Subject(Connection(), question, Questions_Asked(), Player_Scores(), Timer())
         actual = s.first_hint()
         self.assertEqual(actual, "O__ __n__C__w__!__h__'__ __l__e__!")
 
@@ -122,7 +123,7 @@ class QuestionerTestCase(unittest.TestCase):
             'Ask': "What's a Diorama?",
             'Answer': "OMG Han! Chewie! They're all here!"
         }
-        s = Subject(Connection(), question, Questions_Asked(), Timer())
+        s = Subject(Connection(), question, Questions_Asked(), Player_Scores(), Timer())
         actual = s.second_hint()
         self.assertEqual(actual, "_MG H_n! Ch_w__! Th_y'r_ _ll h_r_!")
 
@@ -132,7 +133,7 @@ class QuestionerTestCase(unittest.TestCase):
             'Answer': "OMG Han! Chewie! They're all here!"
         }
         mock_connection = Connection()
-        s = Subject(mock_connection, question, Questions_Asked(), Timer())
+        s = Subject(mock_connection, question, Questions_Asked(), Player_Scores(), Timer())
         s.start()
         self.assertEqual(mock_connection._message, "What's a Diorama?")
 
@@ -142,7 +143,7 @@ class QuestionerTestCase(unittest.TestCase):
             'Answer': "OMG Han! Chewie! They're all here!"
         }
         mock_connection = Connection()
-        s = Subject(mock_connection, question, Questions_Asked(), Timer())
+        s = Subject(mock_connection, question, Questions_Asked(), Player_Scores(), Timer())
         s.go()
         self.assertTrue(mock_connection._message in Chat.unanswered_questions)
 
@@ -152,7 +153,7 @@ class QuestionerTestCase(unittest.TestCase):
             'Answer': "OMG Han! Chewie! They're all here!"
         }
         mock_questions_asked = Questions_Asked()
-        s = Subject(Connection(), question, mock_questions_asked, Timer())
+        s = Subject(Connection(), question, mock_questions_asked, Player_Scores(), Timer())
         s.end()
         self.assertEqual(mock_questions_asked._log[0], question)
 
@@ -163,7 +164,7 @@ class QuestionerTestCase(unittest.TestCase):
         }
         mock_connection = Connection()
         mock_connection.last_response = ("trivvy_fan", "The Wrong Answer")
-        s = Subject(mock_connection, question, Questions_Asked(), Timer())
+        s = Subject(mock_connection, question, Questions_Asked(), Player_Scores(), Timer())
         s.go()
         self.assertTrue(mock_connection._message in Chat.unanswered_questions)
 
@@ -174,7 +175,7 @@ class QuestionerTestCase(unittest.TestCase):
         }
         mock_connection = Connection()
         mock_timer = Timer()
-        s = Subject(mock_connection, question, Questions_Asked(), Timer())
+        s = Subject(mock_connection, question, Questions_Asked(), Player_Scores(), Timer())
         s.go()
         self.assertEqual(len(mock_connection._message_list), 4)
         self.assertEqual(s.ask, mock_connection._message_list[0])
@@ -189,9 +190,21 @@ class QuestionerTestCase(unittest.TestCase):
         }
         mock_connection = Connection()
         mock_connection.last_response = ("happy_lass", "OMG Han! Chewie! They're all here!")
-        s = Subject(mock_connection, question, Questions_Asked(), Timer())
+        s = Subject(mock_connection, question, Questions_Asked(), Player_Scores(), Timer())
         s.go()
         self.assertTrue(mock_connection.last_response[0] in mock_connection._message)
+
+    def test_questioner_records_the_winner_when_they_answer_correctly(self):
+        question = {
+            'Ask': "What's a Diorama?",
+            'Answer': "OMG Han! Chewie! They're all here!"
+        }
+        mock_connection = Connection()
+        mock_player_scores = Player_Scores()
+        mock_connection.last_response = ("happy_lass", "OMG Han! Chewie! They're all here!")
+        s = Subject(mock_connection, question, Questions_Asked(), mock_player_scores, Timer())
+        s.go()
+        self.assertEqual(mock_connection.last_response[0], mock_player_scores._score)
 
     def chat(self, connection, response):
         connection.last_response = response
@@ -219,7 +232,7 @@ class QuestionerTestCase(unittest.TestCase):
             'Answer': "A Duck!"
         }
         mock_connection = Connection()
-        s = Subject(mock_connection, question, Questions_Asked(), Timer())
+        s = Subject(mock_connection, question, Questions_Asked(), Player_Scores(), Timer())
 
         with ThreadPoolExecutor(max_workers=2) as e:
             e.submit(s.go)
@@ -233,7 +246,7 @@ class QuestionerTestCase(unittest.TestCase):
             'Answer': "A Duck!"
         }
         mock_connection = Connection()
-        s = Subject(mock_connection, question, Questions_Asked(), Timer())
+        s = Subject(mock_connection, question, Questions_Asked(), Player_Scores(), Timer())
 
         with ThreadPoolExecutor(max_workers=2) as e:
             e.submit(s.go)
