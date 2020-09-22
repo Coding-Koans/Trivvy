@@ -12,6 +12,9 @@ class Configuration:
         try:
             config = configparser.ConfigParser()
             config.read(config_file)
+
+            # Should this first set of trivia-related values be accessed in a separate game_config?
+            # a Bot_Config and a Game_Config?
             self.trivia_filename = config['Trivia Settings']['trivia_filename']
             self.trivia_filetype = config['Trivia Settings']['trivia_filetype']
             self.trivia_questions = int(config['Trivia Settings']['trivia_questions'])
@@ -20,6 +23,7 @@ class Configuration:
             self.trivia_skiptime = int(config['Trivia Settings']['trivia_skiptime'])
             self.trivia_questiondelay = int(config['Trivia Settings']['trivia_questiondelay'])
             self.trivia_bonusvalue = int(config['Trivia Settings']['trivia_bonusvalue'])
+            # Should it be part of Trivia_Set.py?
 
             admin1 = config['Admin Settings']['admins']
             self.admins = admin1.split(',')

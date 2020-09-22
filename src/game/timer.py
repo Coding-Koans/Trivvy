@@ -1,5 +1,25 @@
 class Timer:
 
+    # Needs to know about the connection's seconds_per_message
+    #    so that it can guage it's timing against that rythm
+
+    # Needs to know about the configuration
+    #    so that it can calibrate itself based on the admin's config
+
+    # Should it be called from Go? Game? Round? Who has access to config?
+
+    # example things it cares about:
+    #   trivia_hinttime_1 = 30
+    #   trivia_hinttime_2 = 60
+    #   trivia_skiptime = 90
+    #   trivia_questiondelay = 8
+
+    # Irrelevant Config values:
+    #?  trivia_filename = triviaset <= rename?
+    #   trivia_bonusvalue = 3
+    #   trivia_filetype = csv
+    #   trivia_questions = 4
+
     def start_question_timer(self):
         self._times_asked = 0
 

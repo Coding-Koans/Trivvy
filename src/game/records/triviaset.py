@@ -2,6 +2,7 @@ import pandas
 import math
 from src.messages import Log as report
 
+# rename Trivia_Set to Question_Loader?
 class Trivia_Set:
     required_columns = ['Round', 'Ask', 'Answer']
 
