@@ -4,12 +4,12 @@ from src.game.questioner import Questioner
 
 class Round():
 
-    def __init__(self, connection, questions, questions_asked, players):
+    def __init__(self, connection, questions, questions_asked, player_scores):
         self.connection = connection
         self.name = questions[0]['Round'] if questions else 0
         self.questions_asked = questions_asked
         self.timer = Timer()
-        self.players = players
+        self.player_scores = player_scores
         self.questioners = self.init_questioners(questions)
 
     def init_questioners(self, questions):
@@ -31,5 +31,5 @@ class Round():
             questioner.go()
 
     def end(self):
-        self.connection.send(Chat.end_round(self.players.round_winners()))
-        self.players.reset_scores_for_next_round()
+        self.connection.send(Chat.end_round(self.player_scores.round_winners()))
+        self.player_scores.reset_scores_for_next_round()

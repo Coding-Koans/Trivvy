@@ -1,6 +1,6 @@
 from src.game.records.file_system_orm import FS_ORM
 
-class Players():
+class Player_Scores():
     def __init__(self, file_name):
         blank_records = {}
         self.fs = FS_ORM(file_name, blank_records)

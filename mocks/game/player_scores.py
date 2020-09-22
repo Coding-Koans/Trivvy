@@ -1,4 +1,4 @@
-class Players():
+class Player_Scores():
     def __init__(self):
         self._score = "Not Yet Called."
         self._winner = "Not Yet Called."

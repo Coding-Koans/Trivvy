@@ -3,11 +3,11 @@ from src.game.round import Round
 
 class Game:
 
-    def __init__(self, connection, questions, questions_asked, players):
+    def __init__(self, connection, questions, questions_asked, player_scores):
         self.connection = connection
         self.questions = questions
         self.questions_asked = questions_asked
-        self.players = players
+        self.player_scores = player_scores
         self.rounds = []
 
     def init_rounds(self):
@@ -15,7 +15,7 @@ class Game:
         return [self.init_r(round_questions) for round_questions in game_qs]
 
     def init_r(self, round_questions):
-        return Round(self.connection, round_questions, self.questions_asked, self.players)
+        return Round(self.connection, round_questions, self.questions_asked, self.player_scores)
 
     def list_by_rounds(self, questions):
         game_qs = []
@@ -40,7 +40,7 @@ class Game:
 
     def start(self):
         self.rounds = self.init_rounds()
-        self.connection.send(Chat.new_game(self.players.top_players()))
+        self.connection.send(Chat.new_game(self.player_scores.top_players()))
 
     def run(self):
         self.rounds[0].go()
@@ -48,6 +48,6 @@ class Game:
     def end(self):
         if len(self.rounds) == 1:
             self.questions_asked.clear_all()
-            self.connection.send(Chat.end_game(self.players.game_winners()))
-            self.players.score_winners()
-            self.players.reset_scores_for_next_game()
+            self.connection.send(Chat.end_game(self.player_scores.game_winners()))
+            self.player_scores.score_winners()
+            self.player_scores.reset_scores_for_next_game()
