@@ -206,6 +206,18 @@ class QuestionerTestCase(unittest.TestCase):
         s.go()
         self.assertEqual(mock_connection.last_response[0], mock_player_scores._score)
 
+    def test_questioner_does_not_record_the_player_when_they_answer_incorrectly(self):
+        question = {
+            'Ask': "What's a Diorama?",
+            'Answer': "OMG Han! Chewie! They're all here!"
+        }
+        mock_connection = Connection()
+        mock_player_scores = Player_Scores()
+        mock_connection.last_response = ("wrong_man", "a model representing a scene with three-dimensional figures")
+        s = Subject(mock_connection, question, Questions_Asked(), mock_player_scores, Timer())
+        s.go()
+        self.assertEqual("Not Yet Called.", mock_player_scores._score)
+
     def chat(self, connection, response):
         connection.last_response = response
         time.sleep(connection.seconds_per_message)
