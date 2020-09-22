@@ -1,5 +1,5 @@
 from src.game.records.questions_asked import Questions_Asked
-from src.game.records.players import Players
+from src.game.records.player_scores import Player_Scores
 
 from .go import Go
 from .stop import stop
@@ -15,6 +15,6 @@ class All:
 
     def commands(self):
         return [
-            Go('triviaset.csv', Questions_Asked(self.opts["qa"]), Players(self.opts["ps"])).tuple(),
+            Go('triviaset.csv', Questions_Asked(self.opts["qa"]), Player_Scores(self.opts["ps"])).tuple(),
             stop.tuple(),
         ]
