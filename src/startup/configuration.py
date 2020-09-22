@@ -24,6 +24,7 @@ class Configuration:
             self.trivia_questiondelay = int(config['Trivia Settings']['trivia_questiondelay'])
             self.trivia_bonusvalue = int(config['Trivia Settings']['trivia_bonusvalue'])
             # Should it be part of Trivia_Set.py?
+            # No, since it's a separate concern.
 
             admin1 = config['Admin Settings']['admins']
             self.admins = admin1.split(',')
