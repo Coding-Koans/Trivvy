@@ -9,6 +9,8 @@ class Timer:
     # Should it be called from Go? Game? Round? Who has access to config?
 
     # example things it cares about:
+    #  Should it care about the hinttime values,
+    #  or should that be coordinated with a single time value?
     #   trivia_hinttime_1 = 30
     #   trivia_hinttime_2 = 60
     #   trivia_skiptime = 90
