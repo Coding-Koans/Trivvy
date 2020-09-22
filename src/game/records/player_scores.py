@@ -26,6 +26,7 @@ class Player_Scores():
         }
 
     def score_winners(self, winners):
+        # score winners needs to figure out whose a winner on its own, not be provided that info! (get rid of `winners` param)
         self.scores = self.fs.get_records()
         for player in winners:
             # pretty sure it's impossible for someone to win and not be on the board
