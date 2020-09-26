@@ -25,12 +25,14 @@ class Player_Scores():
             "game_wins": 0
         }
 
-    def score_winners(self, winners):
-        # score winners needs to figure out whose a winner on its own, not be provided that info! (get rid of `winners` param)
+    def score_winners(self):
         self.scores = self.fs.get_records()
-        for player in winners:
-            # pretty sure it's impossible for someone to win and not be on the board
-            if player in self.scores.keys(): 
+        top_score = 1
+        for player, scores in self.scores.items():
+            if self.scores[player]["game_points"] > top_score:
+                top_score = self.scores[player]["game_points"]
+        for player, score in self.scores.items():
+            if self.scores[player]["game_points"] == top_score:
                 self.scores[player]["game_wins"] += 1
         self.fs.save_records(self.scores)
 
