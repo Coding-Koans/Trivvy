@@ -1,7 +1,7 @@
 from src.messages import Log as report
 import configparser
 
-class Configuration:
+class Trivia_Game_Configuration:
 
     def __init__(self, config_file, log = print):
         self.log = log
