@@ -18,14 +18,10 @@ class Bot_Configuration:
             # The code duplication is indicating an opportunity to refactor
             # But I'd prefer to decouple the game from the bot so they can be reusable
             # Please update or delete these with whatever the config file is supposed to have
-            self.trivia_filename = config['Trivia Settings']['trivia_filename']
-            self.trivia_filetype = config['Trivia Settings']['trivia_filetype']
-            self.trivia_questions = int(config['Trivia Settings']['trivia_questions'])
             self.trivia_hinttime_1 = int(config['Trivia Settings']['trivia_hinttime_1'])
             self.trivia_hinttime_2 = int(config['Trivia Settings']['trivia_hinttime_2'])
             self.trivia_skiptime = int(config['Trivia Settings']['trivia_skiptime'])
             self.trivia_questiondelay = int(config['Trivia Settings']['trivia_questiondelay'])
-            self.trivia_bonusvalue = int(config['Trivia Settings']['trivia_bonusvalue'])
             # End Check for Unused Values
 
             admin1 = config['Admin Settings']['admins']
