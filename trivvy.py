@@ -1,5 +1,5 @@
 from src.bot import Trivvy
-from src.startup import Configuration, Option_Worker
+from src.startup import Bot_Configuration, Option_Worker
 from src.connection import Connection
 from src.commander import Commander
 from src.commands import All
@@ -9,9 +9,8 @@ def main(user_input):
     worker = Option_Worker(user_input)
     config_file, socket = worker.setWithOptions()
 
-    config = Configuration(config_file)
+    config = Bot_Configuration(config_file)
     connect_to = config.get_connection_constants()
-    #? config.get_trivia_timing()
     twitch_connection = Connection(connect_to, socket)
     route_commander = Commander(All().commands(), config.get_admins(), twitch_connection)
     app = Trivvy(twitch_connection, route_commander)

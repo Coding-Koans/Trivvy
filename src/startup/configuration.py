@@ -1,7 +1,7 @@
 from src.messages import Log as report
 import configparser
 
-class Configuration:
+class Bot_Configuration:
 
     def abruptly_end_the_app():
         exit()
@@ -39,7 +39,7 @@ class Configuration:
             self.log(report.config_success)
         except:
             self.log(report.config_failure)
-            Configuration.abruptly_end_the_app()
+            Bot_Configuration.abruptly_end_the_app()
 
     def set_admins(config):
         separator = ','
