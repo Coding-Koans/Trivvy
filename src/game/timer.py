@@ -6,21 +6,19 @@ class Timer:
     # Needs to know about the configuration
     #    so that it can calibrate itself based on the admin's config
 
-    # Should it be called from Go? Game? Round? Who has access to config?
+    # it be called from Go, knows about hat it cares about
 
     # example things it cares about:
-    #  Should it care about the hinttime values,
-    #  or should that be coordinated with a single time value?
-    #   trivia_hinttime_1 = 30
-    #   trivia_hinttime_2 = 60
-    #   trivia_skiptime = 90
-    #   trivia_questiondelay = 8
+        # {
+        #     self.trivia_hinttime_1,
+        #     self.trivia_hinttime_2,
+        #     self.trivia_skiptime,
+        #     self.trivia_questiondelay,
+        # }
 
-    # Irrelevant Config values:
-    #?  trivia_filename = triviaset <= rename?
-    #   trivia_bonusvalue = 3
-    #   trivia_filetype = csv
-    #   trivia_questions = 4
+    def __init__(self, connection_poll_tempo, config_settings):
+        self.settings = config_settings
+        self.tempo = connection_poll_tempo
 
     def start_question_timer(self):
         self._times_asked = 0
