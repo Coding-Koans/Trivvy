@@ -11,7 +11,7 @@ class Trivia_Set:
         self.log = log
         self.columns = dataFrame.to_dict()
         self.error = self.validate_columns(self.columns)
-        self.questions = dataFrame.to_dict('record')
+        self.questions = dataFrame.to_dict('records')
 
     def validate_columns(self, columns):
         for column in Trivia_Set.required_columns:
