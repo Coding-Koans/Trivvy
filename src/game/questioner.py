@@ -22,6 +22,7 @@ class Questioner:
         self.end()
 
     def start(self):
+        self.timer.start_question_timer()
         self.connection.send(self.ask)
 
     def run(self):
@@ -29,7 +30,6 @@ class Questioner:
         hint_1_given = False
         hint_2_given = False
         times_up = False
-        self.timer.start_question_timer()
         while(not times_up and not question_answered):
             time.sleep(self.connection.seconds_per_message)
             response = self.connection.last_response
@@ -49,6 +49,7 @@ class Questioner:
 
     def end(self):
         self.questions_asked.log(self.question)
+        self.timer.wait()
 
     def check_answer(self, participant_answer):
         participant_answer = Mr.clean(participant_answer)
