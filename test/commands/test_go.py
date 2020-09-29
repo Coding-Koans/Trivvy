@@ -79,4 +79,8 @@ class GoCommandTestCase(unittest.TestCase):
             e.submit(s.run_the_next_trivia_round, mock_connection, message)
             e.submit(s.run_the_next_trivia_round, mock_connection, message)
 
-        self.assertEqual(spy._history[0], Log.in_progress(user, command))
+        error_message_count = 0
+        for message in spy._history:
+            if message == Log.in_progress(user, command):
+                error_message_count += 1
+        self.assertEqual(error_message_count, 1)
