@@ -15,3 +15,6 @@ class Timer:
 
     def question_hint_2_up(self):
         return self._times_asked >= 8
+
+    def wait(self):
+        pass
