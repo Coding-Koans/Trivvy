@@ -15,9 +15,6 @@ class All:
 
     def commands(self):
         return [
-            # access config to set name for the .csv?
-            # configure timer from config here?
-            # -or- pass in the game_config values here and handle it inside Go()
-            Go('triviaset.csv', Questions_Asked(self.opts["qa"]), Player_Scores(self.opts["ps"])).tuple(),
+            Go('config.txt', 'triviaset.csv', Questions_Asked(self.opts["qa"]), Player_Scores(self.opts["ps"])).tuple(),
             stop.tuple(),
         ]

@@ -3,11 +3,12 @@ from src.game.round import Round
 
 class Game:
 
-    def __init__(self, connection, questions, questions_asked, player_scores):
+    def __init__(self, connection, questions, questions_asked, player_scores, timer):
         self.connection = connection
         self.questions = questions
         self.questions_asked = questions_asked
         self.player_scores = player_scores
+        self.timer = timer
         self.rounds = []
 
     def init_rounds(self):
@@ -15,7 +16,7 @@ class Game:
         return [self.init_r(round_questions) for round_questions in game_qs]
 
     def init_r(self, round_questions):
-        return Round(self.connection, round_questions, self.questions_asked, self.player_scores)
+        return Round(self.connection, round_questions, self.questions_asked, self.player_scores, self.timer)
 
     def list_by_rounds(self, questions):
         game_qs = []

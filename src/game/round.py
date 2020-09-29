@@ -1,14 +1,13 @@
-from mocks.game.timer import Timer
 from src.messages import Chat
 from src.game.questioner import Questioner
 
 class Round():
 
-    def __init__(self, connection, questions, questions_asked, player_scores):
+    def __init__(self, connection, questions, questions_asked, player_scores, timer):
         self.connection = connection
         self.name = questions[0]['Round'] if questions else 0
         self.questions_asked = questions_asked
-        self.timer = Timer()
+        self.timer = timer
         self.player_scores = player_scores
         self.questioners = self.init_questioners(questions)
 

@@ -4,6 +4,7 @@ from concurrent.futures import ThreadPoolExecutor
 from mocks.connection import Connection
 from mocks.game.questions_asked import Questions_Asked
 from mocks.game.player_scores import Player_Scores
+from mocks.game.timer import Timer
 from src.messages import Chat
 from src.game.game import Game as Subject
 
@@ -17,7 +18,7 @@ class GameTestCase(unittest.TestCase):
             {'Round': 3, 'Ask': 'Are you a god?', 'Answer': 'YES!'}
         ]
 
-        subject = Subject(Connection(), questions, Questions_Asked(), Player_Scores())
+        subject = Subject(Connection(), questions, Questions_Asked(), Player_Scores(), Timer())
         subject.start()
 
         self.assertEqual(subject.rounds[0].questioners[0].ask, "What's a Diorama?")
@@ -40,7 +41,7 @@ class GameTestCase(unittest.TestCase):
         silver = f"{mock_player_scores._top_players[1][0]}: {mock_player_scores._top_players[1][1]}"
         bronze = f"{mock_player_scores._top_players[2][0]}: {mock_player_scores._top_players[2][1]}"
 
-        s = Subject(mock_connection, questions, Questions_Asked(), mock_player_scores)
+        s = Subject(mock_connection, questions, Questions_Asked(), mock_player_scores, Timer())
         s.start()
 
         self.assertTrue(gold in mock_connection._message)
@@ -62,7 +63,7 @@ class GameTestCase(unittest.TestCase):
         silver = f"{mock_player_scores._game_winners[1][0]}: {mock_player_scores._game_winners[1][1]}"
         bronze = f"{mock_player_scores._game_winners[2][0]}: {mock_player_scores._game_winners[2][1]}"
 
-        s = Subject(mock_connection, questions,  mock_questions_asked, mock_player_scores)
+        s = Subject(mock_connection, questions,  mock_questions_asked, mock_player_scores, Timer())
         s.go()
         s.go()
         s.go()
@@ -77,7 +78,7 @@ class GameTestCase(unittest.TestCase):
         ]
         mock_questions_asked = Questions_Asked()
 
-        s = Subject(Connection(), questions, mock_questions_asked, Player_Scores())
+        s = Subject(Connection(), questions, mock_questions_asked, Player_Scores(), Timer())
         s.start()
         s.end()
 
@@ -89,7 +90,7 @@ class GameTestCase(unittest.TestCase):
         ]
         mock_player_scores = Player_Scores()
 
-        s = Subject(Connection(), questions, Questions_Asked(), mock_player_scores)
+        s = Subject(Connection(), questions, Questions_Asked(), mock_player_scores, Timer())
         s.start()
         s.end()
 
@@ -101,7 +102,7 @@ class GameTestCase(unittest.TestCase):
         ]
         mock_player_scores = Player_Scores()
 
-        s = Subject(Connection(), questions, Questions_Asked(), mock_player_scores)
+        s = Subject(Connection(), questions, Questions_Asked(), mock_player_scores, Timer())
         s.start()
         s.end()
 
@@ -129,7 +130,7 @@ class GameTestCase(unittest.TestCase):
             ],
         ]
 
-        s = Subject(Connection(), initial_questions, Questions_Asked(), Player_Scores())
+        s = Subject(Connection(), initial_questions, Questions_Asked(), Player_Scores(), Timer())
         actual_questions = s.list_by_rounds(initial_questions)
 
         self.assertEqual(actual_questions, expected_questions)
@@ -156,7 +157,7 @@ class GameTestCase(unittest.TestCase):
             ],
         ]
 
-        s = Subject(Connection(), initial_questions, Questions_Asked(), Player_Scores())
+        s = Subject(Connection(), initial_questions, Questions_Asked(), Player_Scores(), Timer())
         actual_questions = s.list_by_rounds(initial_questions)
 
         self.assertEqual(actual_questions, expected_questions)
@@ -183,7 +184,7 @@ class GameTestCase(unittest.TestCase):
             ],
         ]
 
-        s = Subject(Connection(), initial_questions, Questions_Asked(), Player_Scores())
+        s = Subject(Connection(), initial_questions, Questions_Asked(), Player_Scores(), Timer())
         actual_questions = s.list_by_rounds(initial_questions)
 
         self.assertEqual(actual_questions, expected_questions)
@@ -210,7 +211,7 @@ class GameTestCase(unittest.TestCase):
             ]
         ]
 
-        s = Subject(Connection(), initial_questions, Questions_Asked(), Player_Scores())
+        s = Subject(Connection(), initial_questions, Questions_Asked(), Player_Scores(), Timer())
         actual_questions = s.list_by_rounds(initial_questions)
 
         self.assertEqual(actual_questions, expected_questions)
@@ -218,7 +219,7 @@ class GameTestCase(unittest.TestCase):
     def test_game_init_rounds_returns_an_empty_array_if_no_questions_are_given(self):
         initial_questions = []
 
-        s = Subject(Connection(), initial_questions, Questions_Asked(), Player_Scores())
+        s = Subject(Connection(), initial_questions, Questions_Asked(), Player_Scores(), Timer())
         actual_questions = s.init_rounds()
 
         self.assertEqual(actual_questions, initial_questions)
@@ -245,7 +246,7 @@ class GameTestCase(unittest.TestCase):
                 {'Round': 3, 'Ask': 'Are you a god?', 'Answer': 'YES!'}
             ],
         ]
-        s = Subject(Connection(), initial_questions, mock_questions_asked, Player_Scores())
+        s = Subject(Connection(), initial_questions, mock_questions_asked, Player_Scores(), Timer())
         actual_questions = s.list_by_rounds(initial_questions)
         self.assertEqual(actual_questions, expected_questions)
 
@@ -287,7 +288,7 @@ class GameTestCase(unittest.TestCase):
         mock_connection = Connection()
         mock_player_scores = Player_Scores()
         mock_questions_asked = Questions_Asked()
-        s = Subject(mock_connection, questions, mock_questions_asked, mock_player_scores)
+        s = Subject(mock_connection, questions, mock_questions_asked, mock_player_scores, Timer())
 
         with ThreadPoolExecutor(max_workers=2) as e:
             e.submit(s.go)
