@@ -7,12 +7,13 @@ import time
 class Questioner:
     hint_replacement = '_'
 
-    def __init__(self, connection, question, questions_asked, timer):
+    def __init__(self, connection, question, questions_asked, player_scores, timer):
         self.connection = connection
         self.question = question
         self.ask = question['Ask']
         self.answer = question['Answer']
         self.questions_asked = questions_asked
+        self.player_scores = player_scores
         self.timer = timer
 
     def go(self):
@@ -21,6 +22,7 @@ class Questioner:
         self.end()
 
     def start(self):
+        self.timer.start_question_timer()
         self.connection.send(self.ask)
 
     def run(self):
@@ -28,12 +30,12 @@ class Questioner:
         hint_1_given = False
         hint_2_given = False
         times_up = False
-        self.timer.start_question_timer()
         while(not times_up and not question_answered):
             time.sleep(self.connection.seconds_per_message)
             response = self.connection.last_response
             if self.check_answer(response[1]):
                 question_answered = True
+                self.player_scores.score(response[0])
                 self.connection.send(Chat.correct_answer(response[0]))
             if not question_answered and not hint_2_given and self.timer.question_hint_2_up():
                 hint_2_given = True
@@ -47,6 +49,7 @@ class Questioner:
 
     def end(self):
         self.questions_asked.log(self.question)
+        self.timer.wait()
 
     def check_answer(self, participant_answer):
         participant_answer = Mr.clean(participant_answer)

@@ -9,6 +9,10 @@ class Log:
     config_success = 'Configuration is Go'
     config_failure = 'Config not loaded! Check config file and reboot bot'
 
+    trivia_config_loading = 'Loading trivia config...'
+    trivia_config_success = 'Trivia Configuration is Go'
+    trivia_config_failure = 'Config not loaded! Using sensible defaults'
+
     connect_loading = 'Attempting connection...'
     connect_pass = 'Sending Oauth Token'
     connect_nick = 'Sending Bot Name'

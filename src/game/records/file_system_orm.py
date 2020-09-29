@@ -7,11 +7,9 @@ class FS_ORM():
         self.blank_records = blank_records
         self.records = self.get_records()
 
-    # public
     def save_records(self, records):
         self.overwrite_to_FS(records)
 
-    # public
     def get_records(self):
         if self.cache or self.cache == self.blank_records:
             return self.cache

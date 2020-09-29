@@ -1,4 +1,4 @@
-from src.startup.configuration import Configuration
+from src.startup.configuration import Bot_Configuration
 from mocks.silent_log import dont_print
 import random
 
@@ -29,7 +29,7 @@ class fake_reception:
 
         def decode(fake_reception, encoding):
             log = dont_print
-            config = Configuration('mocks/config.txt', log)
+            config = Bot_Configuration('mocks/config.txt', log)
             conn = config.get_connection_constants()
             chan = conn['channel'][1:]
             bot = conn['bot_name']

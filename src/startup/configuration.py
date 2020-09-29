@@ -1,7 +1,7 @@
 from src.messages import Log as report
 import configparser
 
-class Configuration:
+class Bot_Configuration:
 
     def abruptly_end_the_app():
         exit()
@@ -12,14 +12,17 @@ class Configuration:
         try:
             config = configparser.ConfigParser()
             config.read(config_file)
-            self.trivia_filename = config['Trivia Settings']['trivia_filename']
-            self.trivia_filetype = config['Trivia Settings']['trivia_filetype']
-            self.trivia_questions = int(config['Trivia Settings']['trivia_questions'])
+
+            # We don't use these, but we check for their existence here
+            # Finding out later that a command will error out is less-than ideal
+            # The code duplication is indicating an opportunity to refactor
+            # But I'd prefer to decouple the game from the bot so they can be reusable
+            # Please update or delete these with whatever the config file is supposed to have
             self.trivia_hinttime_1 = int(config['Trivia Settings']['trivia_hinttime_1'])
             self.trivia_hinttime_2 = int(config['Trivia Settings']['trivia_hinttime_2'])
             self.trivia_skiptime = int(config['Trivia Settings']['trivia_skiptime'])
             self.trivia_questiondelay = int(config['Trivia Settings']['trivia_questiondelay'])
-            self.trivia_bonusvalue = int(config['Trivia Settings']['trivia_bonusvalue'])
+            # End Check for Unused Values
 
             admin1 = config['Admin Settings']['admins']
             self.admins = admin1.split(',')
@@ -32,7 +35,7 @@ class Configuration:
             self.log(report.config_success)
         except:
             self.log(report.config_failure)
-            Configuration.abruptly_end_the_app()
+            Bot_Configuration.abruptly_end_the_app()
 
     def set_admins(config):
         separator = ','
