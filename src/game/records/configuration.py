@@ -5,7 +5,14 @@ class Trivia_Game_Configuration:
 
     def __init__(self, config_file, log = print):
         self.log = log
-        self.log(report.config_loading)
+        self.log(report.trivia_config_loading)
+
+        # sensible defaults
+        self.trivia_hinttime_1 = 45
+        self.trivia_hinttime_2 = 90
+        self.trivia_skiptime = 135
+        self.trivia_questiondelay = 5
+
         try:
             config = configparser.ConfigParser()
             config.read(config_file)
