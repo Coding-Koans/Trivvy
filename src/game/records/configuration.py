@@ -28,8 +28,8 @@ class Trivia_Game_Configuration:
 
     def get_trivia_constants(self):
         return {
-            self.trivia_hinttime_1,
-            self.trivia_hinttime_2,
-            self.trivia_skiptime,
-            self.trivia_questiondelay,
+            'times_up': self.trivia_skiptime,
+            'hint_1_up': self.trivia_hinttime_1,
+            'hint_2_up': self.trivia_hinttime_2,
+            'wait': self.trivia_questiondelay,
         }
