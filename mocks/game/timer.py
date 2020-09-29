@@ -1,5 +1,8 @@
 class Timer:
 
+    def __init__(self, tempo = "int used in real timer", settings = "obj used in real timer"):
+        pass
+
     def start_question_timer(self):
         self._times_asked = 0
 
