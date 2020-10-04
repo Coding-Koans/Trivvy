@@ -8,5 +8,8 @@ class Mr:
         return message.lower()
 
     def title(message):
-        spaced_message = message.replace("-", " ").replace("_", " ").strip()
+        spaced_message = Mr.stripper(message.replace("-", " ").replace("_", " "))
         return spaced_message.title()
+
+    def stripper(message):
+        return message.strip()
