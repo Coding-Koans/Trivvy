@@ -66,6 +66,7 @@ This assumes no development or shell experience. Use your own way if you have op
 ### Running the Bot on Twitch:
 
  - `cd TwitchBots/Trivvy`
+ - `cp config.example.txt config.txt`
  - `atom config.txt`
    - modify these configuration settings so it can log on
    ```
