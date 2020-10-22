@@ -27,7 +27,7 @@ class Commander:
         message = self.last_response[1]
 
         for command in self.commands:
-            if message == command[0]:
+            if Mr.stripper(message) == command[0]:
                 self.process_command(username, command)
 
     def process_command(self, username, command):
